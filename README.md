@@ -1,1 +1,1 @@
-# Domaska_django_Kazantsev
+## Домашняя работа на тему "Знакомство с Django"
