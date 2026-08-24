@@ -1,0 +1,28 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "name": "Учебник Python ",
+        "description": "Полезное руководство",
+        "image": "",
+        "category": 4,
+        "price": "1000.00",
+        "created_at": "2026-08-24T15:38:46.108Z",
+        "updated_at": "2026-08-24T15:38:46.108Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "name": "Ноутбук",
+        "description": "Мощный рабочий инструмент",
+        "image": "",
+        "category": 5,
+        "price": "9000.00",
+        "created_at": "2026-08-24T15:46:08.088Z",
+        "updated_at": "2026-08-24T15:46:08.088Z"
+    }
+}
+]
