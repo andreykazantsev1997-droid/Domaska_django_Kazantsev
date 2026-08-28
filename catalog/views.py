@@ -3,7 +3,9 @@ from .models import Product
 
 # Create your views here.
 def home(request):
-    return render(request, 'catalog/home.html')
+    product = Product.objects.all()
+    context = {"products": product}
+    return render(request, 'catalog/home.html', context)
 
 def contacts(request):
     return render(request, 'catalog/contacts.html')
