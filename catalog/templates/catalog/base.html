@@ -10,7 +10,7 @@
 <body>
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
     <h5 class="my-0 mr-md-auto font-weight-normal">Skystore</h5>
-    {% include 'catalog/menu.html' %}
+    {% include 'catalog/includes/menu.html' %}
 </div>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -18,8 +18,10 @@
     <p class="lead">Skystore - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
         продать</p>
 </div>
-{% block content %}
-{% endblock %}
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
             <div class="col-12 col-md">
@@ -50,7 +52,6 @@
             </div>
         </div>
     </footer>
-</div>
-<script src="/static/js/bootstrap.bundle.min.js"></script
+    <script src="/static/js/bootstrap.bundle.min.js"></script
 </body>
 </html>

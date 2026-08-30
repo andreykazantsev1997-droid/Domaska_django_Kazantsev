@@ -11,7 +11,10 @@
                                 <h3 class="card-title pricing-card-title">{{ product.name }}</h3>
                                 <p>{{ product.description|truncatechars:100 }}</p>
                                 <p>Цена: {{ product.price }}</p>
-                                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <a href="{% url 'catalog:product_detail' product.id %}" class="btn btn-outline-primary">Подробнее</a>
+                                <a href="#" class="btn btn-primary">Купить</a>
                             </div>
                     </div>
                 </div>
