@@ -9,3 +9,10 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     publication_indicator = models.BooleanField(default=True, verbose_name="Признак публикации")
     count_view = models.IntegerField(default=0, verbose_name="Количество просмотров")
+
+    class Meta:
+        verbose_name = "Блоговая запись"
+        verbose_name_plural = "Блоговые записи"
+
+    def __str__(self):
+        return self.title
