@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="container mt-5">
+   <h1 class="display-4 text-center">{{post.title}}</h1>
+    <p class="lead">Описание: {{post.content}}</p>
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
+    {% endif %}
+    <p class="lead">Дата создания: {{post.created_at|date:"d M Y" }}</p>
+    <p class="lead">Количество просмотров: {{post.count_view}}</p>
+</div>
+{% endblock %}

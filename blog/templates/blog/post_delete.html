@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    <p>Вы уверены, что хотите удалить статью "{{ post.title }}"?</p>
+    <button type="submit">Удалить</button>
+    <a href="{% url 'blog:post_list' %}">Отмена</a>
+</form>
