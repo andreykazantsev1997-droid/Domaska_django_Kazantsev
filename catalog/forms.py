@@ -7,6 +7,12 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ['name', 'description', 'image', 'category', 'price']
 
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price is not None and price < 0:
+            raise forms.ValidationError("Цена продукта не может быть отрицательной.")
+        return price
+
     def clean_name(self):
         name = self.cleaned_data.get('name')
         self.validate_words(name)
