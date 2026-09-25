@@ -11,3 +11,9 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(label="Электронная почта")
+
+class UserEdit(forms.ModelForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('email', 'avatar', 'phone_number', 'country')
