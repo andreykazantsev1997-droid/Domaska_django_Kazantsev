@@ -11,4 +11,16 @@
     <p class="lead">Дата создания: {{product.created_at|date:"d M Y" }}</p>
     <p class="lead">Дата последнего изменения: {{product.updated_at|date:"d M Y" }}</p>
 </div>
+    {% if perms.catalog.can_unpublish_product %}
+        <form action="{% url 'catalog.unpublish_product' product.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Отменить публикацию</button>
+        </form>
+    {% endif %}
+    {% if perms.catalog.delete_product %}
+        <form action="{% url 'catalog.product_delete' product.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Удалить продукт</button>
+        </form>
+    {% endif %}
 {% endblock %}
