@@ -15,8 +15,12 @@
                             <div class="d-grid gap-2">
                                 <a href="{% url 'catalog:product_detail' product.id %}" class="btn btn-outline-primary">Подробнее</a>
                                 <a href="#" class="btn btn-primary">Купить</a>
-                                <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+                                {% if user == product.owner or user.is_superuser %}
                                 <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-secondary">Редактировать</a>
+                                {% endif %}
+                                {% if user == product.owner or perms.catalog.delete_product or user.is_superuser %}
+                                <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+                                {% endif %}
                             </div>
                     </div>
                 </div>
