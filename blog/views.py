@@ -1,11 +1,11 @@
 from django.urls import reverse, reverse_lazy
 from .models import Post
 from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content', 'image']
     template_name = 'blog/post_form.html'
@@ -30,7 +30,7 @@ class PostDetailView(DetailView):
         self.object.save()
         return self.object
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ['title', 'content', 'image']
     template_name = 'blog/post_form.html'
@@ -38,7 +38,7 @@ class PostUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('blog:post_detail', kwargs={'pk': self.object.pk})
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/post_delete.html'
     success_url = reverse_lazy('blog:post_list')
