@@ -37,11 +37,11 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('catalog:products')
 
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if self.object.owner != request.user and not request.user.is_superuser:
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.owner != request.user and not request.user.is_superuser and not request.user.has_perm('catalog.can_unpublish_product'):
             return HttpResponseForbidden("У вас нет прав на редактирование этого продукта.")
-        return super().get(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ProductListView(ListView):
@@ -62,13 +62,13 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'catalog/product_confirm_delete.html'
     success_url = reverse_lazy('catalog:products')
 
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
 
-        is_owner = self.object.owner == request.user
+        is_owner = obj.owner == request.user
         is_moderator = request.user.has_perm('catalog.delete_product')
 
         if not (is_owner or is_moderator or request.user.is_superuser):
             return HttpResponseForbidden("У вас нет прав на удаление этого продукта.")
 
-        return super().get(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
