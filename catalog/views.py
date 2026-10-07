@@ -2,9 +2,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, ListView, TemplateView, CreateView, UpdateView, DeleteView
 from .forms import ProductForm
 from .models import Product
+from .services import get_products_by_category, get_cached_products
+
 
 # Create your views here.
 class UnpublishProductView(LoginRequiredMixin, UpdateView):
@@ -49,13 +53,23 @@ class ProductListView(ListView):
     template_name = 'catalog/home.html'
     context_object_name ='products'
 
+    def get_queryset(self):
+        return get_cached_products()
+
 class ProductTemplateView(TemplateView):
     template_name = 'catalog/contacts.html'
 
+@method_decorator(cache_page(60*15), name='dispatch')
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/product_detail.html'
     context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.object.category.id
+        context['category_products'] = get_products_by_category(category_id)
+        return context
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product

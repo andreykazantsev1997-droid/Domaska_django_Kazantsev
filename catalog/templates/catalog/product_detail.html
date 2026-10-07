@@ -26,4 +26,8 @@
             <button type="submit" class="btn btn-danger">Удалить продукт</button>
         </form>
     {% endif %}
+    <p>Товары этой же категории</p>
+    {% for p in category_products %}
+        <a href="{% url 'catalog:product_detail' p.pk %}">{{ p.name }}.</a>
+    {% endfor %}
 {% endblock %}
