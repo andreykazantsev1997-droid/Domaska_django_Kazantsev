@@ -7,7 +7,8 @@ from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, ListView, TemplateView, CreateView, UpdateView, DeleteView
 from .forms import ProductForm
 from .models import Product
-from .services import get_products_by_category
+from .services import get_products_by_category, get_cached_products
+
 
 # Create your views here.
 class UnpublishProductView(LoginRequiredMixin, UpdateView):
@@ -51,6 +52,9 @@ class ProductListView(ListView):
     model = Product
     template_name = 'catalog/home.html'
     context_object_name ='products'
+
+    def get_queryset(self):
+        return get_cached_products()
 
 class ProductTemplateView(TemplateView):
     template_name = 'catalog/contacts.html'
